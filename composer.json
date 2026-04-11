@@ -1,5 +1,5 @@
 {
-    "name": "cabolabs/google-authenticator",
+    "name": "sonata-project/google-authenticator",
     "description": "Library to integrate Google Authenticator into a PHP project",
     "license": "MIT",
     "type": "library",
@@ -21,7 +21,7 @@
             "homepage": "http://www.devnetwork.net/viewtopic.php?f=50&t=94989"
         }
     ],
-    "homepage": "https://github.com/CaboLabs/GoogleAuthenticator",
+    "homepage": "https://github.com/sonata-project/GoogleAuthenticator",
     "require": {
         "php": "^7.3 || ^8.0"
     },
@@ -32,13 +32,13 @@
     "autoload": {
         "psr-4": {
             "Google\\Authenticator\\": "src/",
-            "CaboLabs\\GoogleAuthenticator\\": "src/"
+            "Sonata\\GoogleAuthenticator\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Google\\Authenticator\\Tests\\": "tests/",
-            "CaboLabs\\GoogleAuthenticator\\Tests\\": "tests/"
+            "Sonata\\GoogleAuthenticator\\Tests\\": "tests/"
         }
     },
     "config": {
