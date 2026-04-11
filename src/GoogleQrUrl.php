@@ -55,8 +55,9 @@ final class GoogleQrUrl
      * @param string      $secret      The secret is the generated secret unique to that user
      * @param string|null $issuer      Where you log in to
      * @param int         $size        Image size in pixels, 200 will make it 200x200
+     * @param string      $baseUrl     Base URL used to generate the QR image endpoint
      */
-    public static function generate(string $accountName, string $secret, ?string $issuer = null, int $size = 200): string
+    public static function generate(string $accountName, string $secret, ?string $issuer = null, int $size = 200, string $baseUrl = 'https://api.qrserver.com'): string
     {
         if ('' === $accountName || false !== strpos($accountName, ':')) {
             throw RuntimeException::InvalidAccountName($accountName);
@@ -64,6 +65,10 @@ final class GoogleQrUrl
 
         if ('' === $secret) {
             throw RuntimeException::InvalidSecret();
+        }
+
+        if ('' === $baseUrl) {
+            throw RuntimeException::InvalidBaseUrl();
         }
 
         $label = $accountName;
@@ -80,11 +85,13 @@ final class GoogleQrUrl
         }
 
         $otpauthString = rawurlencode(sprintf($otpauthString, $label, $secret, $issuer));
+        $baseUrl = rtrim($baseUrl, '/');
 
         return sprintf(
-            'https://api.qrserver.com/v1/create-qr-code/?size=%1$dx%1$d&data=%2$s&ecc=M',
+            '%3$s/v1/create-qr-code/?size=%1$dx%1$d&data=%2$s&ecc=M',
             $size,
-            $otpauthString
+            $otpauthString,
+            $baseUrl
         );
     }
 }

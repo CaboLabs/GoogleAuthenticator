@@ -74,4 +74,28 @@ class GoogleQrUrlTest extends \PHPUnit\Framework\TestCase
 
         GoogleQrUrl::generate('John Doe', '');
     }
+
+    public function testGetUrlWithCustomBaseUrl(): void
+    {
+        static::assertSame(
+            'https://example.com/v1/create-qr-code/?size=200x200&data=otpauth%3A%2F%2Ftotp%2FJohn%20Doe%3Fsecret%3D3DHTQX4GCRKHGS55CJ&ecc=M',
+            GoogleQrUrl::generate('John Doe', '3DHTQX4GCRKHGS55CJ', null, 200, 'https://example.com')
+        );
+    }
+
+    public function testGetUrlWithCustomBaseUrlWithTrailingSlash(): void
+    {
+        static::assertSame(
+            'https://example.com/v1/create-qr-code/?size=200x200&data=otpauth%3A%2F%2Ftotp%2FJohn%20Doe%3Fsecret%3D3DHTQX4GCRKHGS55CJ&ecc=M',
+            GoogleQrUrl::generate('John Doe', '3DHTQX4GCRKHGS55CJ', null, 200, 'https://example.com/')
+        );
+    }
+
+    public function testInvalidEmptyBaseUrl(): void
+    {
+        $this->expectException(\Sonata\GoogleAuthenticator\RuntimeException::class);
+        $this->expectExceptionMessage('The base URL may not be an empty string.');
+
+        GoogleQrUrl::generate('John Doe', '3DHTQX4GCRKHGS55CJ', null, 200, '');
+    }
 }

@@ -40,6 +40,11 @@ final class RuntimeException extends \RuntimeException
     {
         return new self('The secret name may not be an empty string.');
     }
+
+    public static function InvalidBaseUrl(): self
+    {
+        return new self('The base URL may not be an empty string.');
+    }
 }
 
 // NEXT_MAJOR: Remove class alias
